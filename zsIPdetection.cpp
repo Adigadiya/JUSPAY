@@ -22,14 +22,17 @@ int main() {
 
         sort(timestamps.begin(), timestamps.end());
 
-        int l=0;
-        for (int r=0; r<timestamps.size(); ++r) {
-            while (timestamps[r] - timestamps[l]>T) l++;
-
-            if (r-l+1 >= K){
-                flaggedIPs.insert(ip);
-                break;
-            }
+        int l=0, r=0, n=timestamps.size();
+        
+        while(r<n){
+            if(timestamps[r] - timestamps[l]<=T){
+                if(r-l+1>=K){                  //if valid window size >=k 
+                    flaggedIPs.insert(ip);
+                    break;
+                }
+                else r++;
+            }   
+            else l++;
         }
     }
 
